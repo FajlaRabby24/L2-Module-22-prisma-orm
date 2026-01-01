@@ -80,16 +80,32 @@ async function run() {
   // });
   // console.log(deleteUser);
 
-  const getUserDataById = await prisma.user.findUnique({
+  // const getUserDataById = await prisma.user.findUnique({
+  //   where: {
+  //     id: 2,
+  //   },
+  //   include: {
+  //     posts: true,
+  //     profile: true,
+  //   },
+  // });
+  // console.log(getUserDataById);
+
+  // ? upsert
+  const upsertUser = await prisma.user.upsert({
     where: {
-      id: 2,
+      email: "fajlarabby.dev@gmail.com",
     },
-    include: {
-      posts: true,
-      profile: true,
+    update: {
+      name: "Fajla Rabby Dev",
+    },
+    create: {
+      name: "Fajla Rabby",
+      email: "fajlarabby.dev@gmail.com",
     },
   });
-  console.log(getUserDataById);
+
+  console.log(upsertUser);
 }
 
 run();
